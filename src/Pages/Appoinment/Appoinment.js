@@ -15,7 +15,9 @@ const Appoinment = () => {
   const [trtment, setTrtment] = useState({});
 
   useEffect(() => {
-    axios("Service.json").then((res) => setServices(res.data));
+    axios("http://localhost:5000/services").then((res) =>
+      setServices(res.data)
+    );
   }, []);
 
   return (
