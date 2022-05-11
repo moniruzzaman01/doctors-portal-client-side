@@ -1,6 +1,5 @@
 import { format } from "date-fns";
 import React from "react";
-import InputTag from "../Shared/InputTag";
 
 const Modal = ({ trtment, date, setTrtment }) => {
   const { name, slots } = trtment;
@@ -26,7 +25,12 @@ const Modal = ({ trtment, date, setTrtment }) => {
           </label>
           <h3 className="text-lg font-bold mb-10">{name}</h3>
           <form onSubmit={haldleModalform}>
-            <InputTag value={format(date, "PP")} />
+            <input
+              type="text"
+              value={format(date, "PP")}
+              disabled
+              className="input mb-5 input-bordered w-full max-w-lg"
+            />
             <div className="form-control w-full max-w-lg">
               <select name="slot" className="select select-bordered mb-5">
                 <option defaultValue disabled>
@@ -39,9 +43,21 @@ const Modal = ({ trtment, date, setTrtment }) => {
                 ))}
               </select>
             </div>
-            <InputTag placeholder={"Full Name"}></InputTag>
-            <InputTag placeholder={"Phone Number"}></InputTag>
-            <InputTag placeholder={"Email"}></InputTag>
+            <input
+              type="text"
+              placeholder="Full Name"
+              className="input mb-5 input-bordered w-full max-w-lg"
+            />
+            <input
+              type="text"
+              placeholder="Phone Number"
+              className="input mb-5 input-bordered w-full max-w-lg"
+            />
+            <input
+              type="email"
+              placeholder="Email"
+              className="input mb-5 input-bordered w-full max-w-lg"
+            />
             <button type="submit" className="btn btn-accent w-full">
               Submit
             </button>

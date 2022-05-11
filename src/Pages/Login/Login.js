@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import SocialLogin from "../Shared/SocialLogin";
 import { useSignInWithEmailAndPassword } from "react-firebase-hooks/auth";
@@ -22,9 +22,11 @@ const Login = () => {
   };
 
   //-----------------------------------
-  if (user) {
-    navigate(from, { replace: true });
-  }
+  useEffect(() => {
+    if (user) {
+      navigate(from, { replace: true });
+    }
+  }, [user, navigate, from]);
   return (
     <div className="md:max-w-md lg:max-w-lg mx-auto my-20 px-5">
       <h2 className="text-5xl text-center mb-10">Login</h2>

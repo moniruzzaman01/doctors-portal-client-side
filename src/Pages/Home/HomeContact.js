@@ -1,6 +1,5 @@
 import React from "react";
 import contactBg from "../../assets/images/appointment.png";
-import InputTag from "../Shared/InputTag";
 
 const Contact = () => {
   return (
@@ -19,9 +18,17 @@ const Contact = () => {
       "
         action=""
       >
-        <InputTag placeholder={"Email Address"}></InputTag>
+        <input
+          type="email"
+          name="email"
+          className="input mb-5 input-bordered w-full max-w-lg"
+        />
         <br />
-        <InputTag placeholder={"Subject"}></InputTag>
+        <input
+          type="text"
+          name="subject"
+          className="input mb-5 input-bordered w-full max-w-lg"
+        />
         <br />
         <textarea
           className="textarea mb-5 textarea-bordered  w-full max-w-lg"

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import SocialLogin from "../Shared/SocialLogin";
 import {
@@ -29,9 +29,11 @@ const Signup = () => {
     updateProfile({ displayName: name });
   };
 
-  if (user) {
-    navigate(from, { replace: true });
-  }
+  useEffect(() => {
+    if (user) {
+      navigate(from, { replace: true });
+    }
+  }, [user, navigate, from]);
 
   return (
     <div className="md:max-w-md lg:max-w-lg mx-auto my-20 px-5">

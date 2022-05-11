@@ -31,7 +31,7 @@ const Appoinment = () => {
         }}
         className="hero lg:py-20"
       >
-        <div className="hero-content flex-col lg:flex-row-reverse">
+        <div className="hero-content flex-col md:flex-row-reverse lg:flex-row-reverse">
           <img
             src={chair}
             className="max-w-sm rounded-lg shadow-2xl lg:ml-10"
@@ -47,7 +47,7 @@ const Appoinment = () => {
         <h4 className="text-primary text-center text-3xl mb-10 lg:my-20">
           Available Appointments on {format(date, "PP")}
         </h4>
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-5 lg:mx-20 mx-5">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 lg:mx-20 mx-5">
           {services.map((service, key) => (
             <AvailableAppointment
               key={key}
