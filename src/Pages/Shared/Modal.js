@@ -1,8 +1,12 @@
 import { format } from "date-fns";
 import React from "react";
+import { useAuthState } from "react-firebase-hooks/auth";
+import auth from "../../firebase.init";
 
 const Modal = ({ trtment, date, setTrtment }) => {
+  const [authUser] = useAuthState(auth);
   const { name, slots } = trtment;
+
   const haldleModalform = (event) => {
     event.preventDefault();
     const slot = event.target.slot.value;
@@ -45,17 +49,19 @@ const Modal = ({ trtment, date, setTrtment }) => {
             </div>
             <input
               type="text"
-              placeholder="Full Name"
+              disabled
+              value={authUser?.displayName}
               className="input mb-5 input-bordered w-full max-w-lg"
             />
             <input
               type="text"
-              placeholder="Phone Number"
+              placeholder="+880"
               className="input mb-5 input-bordered w-full max-w-lg"
             />
             <input
               type="email"
-              placeholder="Email"
+              disabled
+              value={authUser?.email}
               className="input mb-5 input-bordered w-full max-w-lg"
             />
             <button type="submit" className="btn btn-accent w-full">
