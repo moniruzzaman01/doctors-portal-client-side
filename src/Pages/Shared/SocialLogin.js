@@ -1,12 +1,16 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useSignInWithGoogle } from "react-firebase-hooks/auth";
 import { useLocation, useNavigate } from "react-router-dom";
 import auth from "../../firebase.init";
+import Spinner from "./Spinner";
 
 const SocialLogin = () => {
-  const [signInWithGoogle, user] = useSignInWithGoogle(auth);
-  const handleGoogleSignIn = () => {
-    signInWithGoogle();
+  const [loading, setLoading] = useState(false);
+  const [signInWithGoogle, user, SignInLoading] = useSignInWithGoogle(auth);
+  const handleGoogleSignIn = async () => {
+    setLoading(true);
+    await signInWithGoogle();
+    setLoading(false);
   };
   //---------------------------
   const navigate = useNavigate();
@@ -18,6 +22,10 @@ const SocialLogin = () => {
       navigate(from, { replace: true });
     }
   }, [user, navigate, from]);
+
+  if (loading || SignInLoading) {
+    return <Spinner />;
+  }
 
   return (
     <button onClick={handleGoogleSignIn} className="btn btn-outline w-full">

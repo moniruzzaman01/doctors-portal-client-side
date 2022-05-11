@@ -41,7 +41,7 @@ const Testimonial = () => {
           <img className="w-24 lg:w-48" src={quote} alt="" />
         </div>
       </div>
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-5 mt-10">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 mt-10">
         {testimonials.map((test, key) => (
           <TestimonialCard
             key={key}

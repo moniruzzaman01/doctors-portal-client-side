@@ -19,12 +19,14 @@ const Contact = () => {
         action=""
       >
         <input
+          required
           type="email"
           name="email"
           className="input mb-5 input-bordered w-full max-w-lg"
         />
         <br />
         <input
+          required
           type="text"
           name="subject"
           className="input mb-5 input-bordered w-full max-w-lg"

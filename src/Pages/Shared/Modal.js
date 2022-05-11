@@ -18,7 +18,12 @@ const Modal = ({ trtment, date, setTrtment }) => {
   return (
     <div>
       {/* <!-- Put this part before </body> tag --> */}
-      <input type="checkbox" id="appoinment-modal" className="modal-toggle" />
+      <input
+        required
+        type="checkbox"
+        id="appoinment-modal"
+        className="modal-toggle"
+      />
       <div className="modal">
         <div className="modal-box relative">
           <label
@@ -30,6 +35,7 @@ const Modal = ({ trtment, date, setTrtment }) => {
           <h3 className="text-lg font-bold mb-10">{name}</h3>
           <form onSubmit={haldleModalform}>
             <input
+              required
               type="text"
               value={format(date, "PP")}
               disabled
@@ -48,17 +54,20 @@ const Modal = ({ trtment, date, setTrtment }) => {
               </select>
             </div>
             <input
+              required
               type="text"
               disabled
               value={authUser?.displayName}
               className="input mb-5 input-bordered w-full max-w-lg"
             />
             <input
+              required
               type="text"
               placeholder="+880"
               className="input mb-5 input-bordered w-full max-w-lg"
             />
             <input
+              required
               type="email"
               disabled
               value={authUser?.email}

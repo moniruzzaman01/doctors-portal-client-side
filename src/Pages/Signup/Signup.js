@@ -6,9 +6,10 @@ import {
   useUpdateProfile,
 } from "react-firebase-hooks/auth";
 import auth from "../../firebase.init";
+import Spinner from "../Shared/Spinner";
 
 const Signup = () => {
-  const [createUserWithEmailAndPass, user] =
+  const [createUserWithEmailAndPass, user, loading] =
     useCreateUserWithEmailAndPassword(auth);
   const [updateProfile] = useUpdateProfile(auth);
 
@@ -35,6 +36,10 @@ const Signup = () => {
     }
   }, [user, navigate, from]);
 
+  if (loading) {
+    return <Spinner />;
+  }
+
   return (
     <div className="md:max-w-md lg:max-w-lg mx-auto my-20 px-5">
       <h2 className="text-5xl text-center mb-10">SignUp</h2>
@@ -42,6 +47,7 @@ const Signup = () => {
         <label htmlFor="">Name</label>
         <br />
         <input
+          required
           type="text"
           name="name"
           className="input mb-5 input-bordered w-full max-w-lg"
@@ -49,6 +55,7 @@ const Signup = () => {
         <label htmlFor="">Email</label>
         <br />
         <input
+          required
           type="text"
           name="email"
           className="input mb-5 input-bordered w-full max-w-lg"
@@ -57,6 +64,7 @@ const Signup = () => {
         <label htmlFor="">Password</label>
         <br />
         <input
+          required
           type="text"
           name="pass"
           className="input mb-5 input-bordered w-full max-w-lg"

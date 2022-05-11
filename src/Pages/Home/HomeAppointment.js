@@ -12,7 +12,7 @@ const HomeAppointment = () => {
       }}
       className="flex items-center px-10 mt-20 lg:mt-32"
     >
-      <div className="flex-1 hidden lg:block">
+      <div className="flex-1 hidden md:block lg:block">
         <img className="mt-[-100px]" src={doctor} alt="" />
       </div>
       <div className="flex-1 py-5">
