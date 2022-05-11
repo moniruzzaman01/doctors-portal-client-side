@@ -1,3 +1,4 @@
+import axios from "axios";
 import { format } from "date-fns";
 import React from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
@@ -7,11 +8,22 @@ const Modal = ({ trtment, date, setTrtment }) => {
   const [authUser] = useAuthState(auth);
   const { name, slots } = trtment;
 
-  const haldleModalform = (event) => {
+  const haldleModalform = async (event) => {
     event.preventDefault();
+    const treatment = name;
+    const date = event.target.date.value;
     const slot = event.target.slot.value;
-    console.log(slot);
-
+    const userName = event.target.name.value;
+    const email = event.target.email.value;
+    const user = {
+      treatment,
+      date,
+      slot,
+      userName,
+      email,
+    };
+    //adding appointment to database
+    await axios.post("http://localhost:5000/services", user);
     setTrtment(null);
   };
 
@@ -37,6 +49,7 @@ const Modal = ({ trtment, date, setTrtment }) => {
             <input
               required
               type="text"
+              name="date"
               value={format(date, "PP")}
               disabled
               className="input mb-5 input-bordered w-full max-w-lg"
@@ -56,6 +69,7 @@ const Modal = ({ trtment, date, setTrtment }) => {
             <input
               required
               type="text"
+              name="name"
               disabled
               value={authUser?.displayName}
               className="input mb-5 input-bordered w-full max-w-lg"
@@ -63,12 +77,14 @@ const Modal = ({ trtment, date, setTrtment }) => {
             <input
               required
               type="text"
+              name="mobile"
               placeholder="+880"
               className="input mb-5 input-bordered w-full max-w-lg"
             />
             <input
               required
               type="email"
+              name="email"
               disabled
               value={authUser?.email}
               className="input mb-5 input-bordered w-full max-w-lg"

@@ -19,7 +19,6 @@ const Login = () => {
     const email = event.target.email.value;
     const pass = event.target.pass.value;
 
-    console.log(email, pass);
     signInWithEmailAndPass(email, pass);
   };
 
