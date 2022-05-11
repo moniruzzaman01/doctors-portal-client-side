@@ -4,8 +4,9 @@ const InputTag = ({ placeholder, value }) => {
   return (
     <input
       type="text"
+      disabled={value ? true : false}
       placeholder={placeholder || ""}
-      defaultValue={value || ""}
+      value={value || ""}
       className="input mb-5 input-bordered w-full max-w-lg"
     />
   );

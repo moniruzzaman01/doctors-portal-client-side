@@ -7,18 +7,20 @@ import "react-day-picker/dist/style.css";
 import { format } from "date-fns";
 import axios from "axios";
 import appoinmentBg from "../../assets/images/bg.png";
+import Modal from "../Shared/Modal";
 
 const Appoinment = () => {
   const [date, setDate] = useState(new Date());
   const [services, setServices] = useState([]);
+  const [trtment, setTrtment] = useState({});
 
   useEffect(() => {
     axios("Service.json").then((res) => setServices(res.data));
   }, []);
 
-  console.log(services);
   return (
     <section>
+      {/* Appointment banner */}
       <div
         style={{
           background: `url(${appoinmentBg})`,
@@ -38,6 +40,7 @@ const Appoinment = () => {
           </div>
         </div>
       </div>
+      {/* appoinment services */}
       <div className="my-10">
         <h4 className="text-primary text-center text-3xl mb-10 lg:my-20">
           Available Appointments on {format(date, "PP")}
@@ -47,17 +50,13 @@ const Appoinment = () => {
             <AvailableAppointment
               key={key}
               service={service}
+              setTrtment={setTrtment}
             ></AvailableAppointment>
           ))}
-          {/* {recentAppontment.map((reApp, key) => (
-            <AvailableAppointment
-              key={key}
-              name={reApp.name}
-              time={reApp.time}
-              spaces={reApp.spaces}
-            ></AvailableAppointment>
-          ))} */}
         </div>
+        {trtment && (
+          <Modal date={date} trtment={trtment} setTrtment={setTrtment} />
+        )}
       </div>
       <Footer />
     </section>

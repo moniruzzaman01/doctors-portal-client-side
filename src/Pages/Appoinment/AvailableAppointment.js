@@ -1,7 +1,6 @@
 import React from "react";
-import Modal from "../Shared/Modal";
 
-const AvailableAppointment = ({ service }) => {
+const AvailableAppointment = ({ service, setTrtment }) => {
   const { name, slots } = service;
   return (
     <div className="card lg:max-w-lg bg-slate-100 shadow-xl">
@@ -14,14 +13,14 @@ const AvailableAppointment = ({ service }) => {
           {slots.length} {slots.length > 0 ? "slots" : "slot"} Available
         </p>
         <div className="flex justify-center">
-          <Modal>
-            <label
-              htmlFor="my-modal-3"
-              className="btn btn-primary text-white my-3 modal-button"
-            >
-              Book Appointment
-            </label>
-          </Modal>
+          <label
+            disabled={!slots.length}
+            htmlFor="appoinment-modal"
+            onClick={() => setTrtment(service)}
+            className="btn btn-primary text-white my-3 "
+          >
+            Book Appointment
+          </label>
         </div>
       </div>
     </div>
