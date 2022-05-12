@@ -1,11 +1,18 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import SocialLogin from "../Shared/SocialLogin";
-import { useSignInWithEmailAndPassword } from "react-firebase-hooks/auth";
+import {
+  useAuthState,
+  useSignInWithEmailAndPassword,
+} from "react-firebase-hooks/auth";
 import auth from "../../firebase.init";
 import Spinner from "../Shared/Spinner";
+import ResetPassModal from "../Shared/ResetPassModal";
 
 const Login = () => {
+  const [modal, setModal] = useState(false);
+  const [resetLoading, setResetLoading] = useState(false);
+  const [authUser] = useAuthState(auth);
   const [signInWithEmailAndPass, user, loading] =
     useSignInWithEmailAndPassword(auth);
 
@@ -24,12 +31,12 @@ const Login = () => {
 
   //-----------------------------------
   useEffect(() => {
-    if (user) {
+    if (authUser || user) {
       navigate(from, { replace: true });
     }
-  }, [user, navigate, from]);
+  }, [authUser, user, navigate, from]);
 
-  if (loading) {
+  if (loading || resetLoading) {
     return <Spinner />;
   }
 
@@ -55,7 +62,21 @@ const Login = () => {
           className="input mb-5 input-bordered w-full max-w-lg"
         />
         <br />
-        <p>Forgot password?</p>
+        <label
+          onClick={() => setModal(true)}
+          htmlFor="resetPassModal"
+          className="text-primary cursor-pointer"
+        >
+          Forgot password?
+        </label>
+        {modal ? (
+          <ResetPassModal
+            setModal={setModal}
+            setResetLoading={setResetLoading}
+          />
+        ) : (
+          ""
+        )}
         <button className="btn btn-accent w-full text-white mt-2">login</button>
         <p className="text-center mt-2">
           New to Doctor's Portal?{" "}

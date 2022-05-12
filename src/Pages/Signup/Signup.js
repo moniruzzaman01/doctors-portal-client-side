@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import SocialLogin from "../Shared/SocialLogin";
 import {
+  useAuthState,
   useCreateUserWithEmailAndPassword,
   useUpdateProfile,
 } from "react-firebase-hooks/auth";
@@ -9,8 +10,9 @@ import auth from "../../firebase.init";
 import Spinner from "../Shared/Spinner";
 
 const Signup = () => {
+  const [authUser] = useAuthState(auth);
   const [createUserWithEmailAndPass, user, loading] =
-    useCreateUserWithEmailAndPassword(auth);
+    useCreateUserWithEmailAndPassword(auth, { sendEmailVerification: true });
   const [updateProfile] = useUpdateProfile(auth);
 
   //-------------------------------
@@ -31,10 +33,10 @@ const Signup = () => {
   };
 
   useEffect(() => {
-    if (user) {
+    if (authUser || user) {
       navigate(from, { replace: true });
     }
-  }, [user, navigate, from]);
+  }, [authUser, user, navigate, from]);
 
   if (loading) {
     return <Spinner />;
@@ -70,7 +72,6 @@ const Signup = () => {
           className="input mb-5 input-bordered w-full max-w-lg"
         />
         <br />
-        <p>Forgot password?</p>
         <button className="btn btn-accent w-full text-white mt-2">
           sign up
         </button>
