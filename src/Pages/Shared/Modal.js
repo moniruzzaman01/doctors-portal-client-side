@@ -2,28 +2,45 @@ import axios from "axios";
 import { format } from "date-fns";
 import React from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
+import { toast } from "react-toastify";
 import auth from "../../firebase.init";
 
 const Modal = ({ trtment, date, setTrtment }) => {
   const [authUser] = useAuthState(auth);
-  const { name, slots } = trtment;
+  const { _id, name, slots } = trtment;
+  // console.log(trtment);
 
   const haldleModalform = async (event) => {
     event.preventDefault();
     const treatment = name;
     const date = event.target.date.value;
     const slot = event.target.slot.value;
-    const userName = event.target.name.value;
-    const email = event.target.email.value;
-    const user = {
+    const userName = authUser.displayName;
+    const email = authUser.email;
+    const mobile = event.target.mobile.value;
+    const appointment = {
+      treatmentId: _id,
       treatment,
       date,
       slot,
-      userName,
-      email,
+      patientName: userName,
+      patientEmail: email,
+      mobile,
     };
     //adding appointment to database
-    await axios.post("http://localhost:5000/services", user);
+    await axios
+      .post("http://localhost:5000/appointment", appointment)
+      .then((res) => {
+        if (res.data.success) {
+          toast(
+            `your appointment set to ${appointment.treatment} on ${appointment.slot}`
+          );
+        } else {
+          toast.error(
+            `You already have an appointment named ${res.data.appointment.treatment} on ${res.data.appointment.date} at ${res.data.appointment.slot}`
+          );
+        }
+      });
     setTrtment(null);
   };
 
@@ -76,17 +93,17 @@ const Modal = ({ trtment, date, setTrtment }) => {
             />
             <input
               required
-              type="text"
-              name="mobile"
-              placeholder="+880"
-              className="input mb-5 input-bordered w-full max-w-lg"
-            />
-            <input
-              required
               type="email"
               name="email"
               disabled
               value={authUser?.email}
+              className="input mb-5 input-bordered w-full max-w-lg"
+            />
+            <input
+              required
+              type="text"
+              name="mobile"
+              placeholder="+880"
               className="input mb-5 input-bordered w-full max-w-lg"
             />
             <button type="submit" className="btn btn-accent w-full">

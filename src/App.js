@@ -11,6 +11,8 @@ import Review from "./Pages/Review/Review";
 import Navbar from "./Pages/Shared/Navbar";
 import Signup from "./Pages/Signup/Signup";
 import RequireAuth from "./RequireAuth/RequireAuth";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function App() {
   const [user] = useAuthState(auth);
@@ -38,6 +40,7 @@ function App() {
             <Route path="/login" element={<Login />}></Route>
             <Route path="/signup" element={<Signup />}></Route>
           </Routes>
+          <ToastContainer />
         </div>
       </div>
     );
