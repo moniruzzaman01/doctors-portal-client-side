@@ -19,11 +19,16 @@ const Navbar = () => {
         <Link to="/review">Review</Link>
       </li>
       <li>
-        <Link to="contact">Contact Us</Link>
+        <Link to="/contact">Contact Us</Link>
       </li>
       <li>
-        <Link to="about">About</Link>
+        <Link to="/about">About</Link>
       </li>
+      {authUser && (
+        <li>
+          <Link to="/dashboard">Dashboard</Link>
+        </li>
+      )}
       {authUser ? (
         <li
           onClick={() => {

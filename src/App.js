@@ -13,6 +13,9 @@ import Signup from "./Pages/Signup/Signup";
 import RequireAuth from "./RequireAuth/RequireAuth";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import Dashboard from "./Dashboard/Dashboard";
+import MyAppointment from "./Dashboard/MyAppointment";
+import MyReview from "./Dashboard/MyReview";
 
 function App() {
   const [user] = useAuthState(auth);
@@ -35,6 +38,17 @@ function App() {
                 </RequireAuth>
               }
             ></Route>
+            <Route
+              path="/dashboard"
+              element={
+                <RequireAuth>
+                  <Dashboard />
+                </RequireAuth>
+              }
+            >
+              <Route index element={<MyAppointment />}></Route>
+              <Route path="review" element={<MyReview />}></Route>
+            </Route>
             <Route path="/review" element={<Review />}></Route>
             <Route path="/contact" element={<Contact />}></Route>
             <Route path="/login" element={<Login />}></Route>
