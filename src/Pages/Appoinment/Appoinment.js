@@ -1,11 +1,10 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import chair from "../../assets/images/chair.png";
 import Footer from "../Shared/Footer";
 import AvailableAppointment from "./AvailableAppointment";
 import { DayPicker } from "react-day-picker";
 import "react-day-picker/dist/style.css";
 import { format } from "date-fns";
-import axios from "axios";
 import appoinmentBg from "../../assets/images/bg.png";
 import Modal from "../Shared/Modal";
 import { useQuery } from "react-query";
