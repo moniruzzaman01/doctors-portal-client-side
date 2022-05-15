@@ -1,20 +1,18 @@
 import React, { useEffect, useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import SocialLogin from "../Shared/SocialLogin";
-import {
-  useAuthState,
-  useSignInWithEmailAndPassword,
-} from "react-firebase-hooks/auth";
+import { useSignInWithEmailAndPassword } from "react-firebase-hooks/auth";
 import auth from "../../firebase.init";
 import Spinner from "../Shared/Spinner";
 import ResetPassModal from "../Shared/ResetPassModal";
+import useToken from "../../hooks/useToken";
 
 const Login = () => {
   const [modal, setModal] = useState(false);
   const [resetLoading, setResetLoading] = useState(false);
-  const [authUser] = useAuthState(auth);
   const [signInWithEmailAndPass, user, loading] =
     useSignInWithEmailAndPassword(auth);
+  const [token] = useToken(user);
 
   //-------------------------------
   const navigate = useNavigate();
@@ -31,10 +29,10 @@ const Login = () => {
 
   //-----------------------------------
   useEffect(() => {
-    if (authUser || user) {
+    if (token) {
       navigate(from, { replace: true });
     }
-  }, [authUser, user, navigate, from]);
+  }, [token, navigate, from]);
 
   if (loading || resetLoading) {
     return <Spinner />;

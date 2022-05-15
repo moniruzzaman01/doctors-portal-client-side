@@ -2,18 +2,18 @@ import React, { useEffect } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import SocialLogin from "../Shared/SocialLogin";
 import {
-  useAuthState,
   useCreateUserWithEmailAndPassword,
   useUpdateProfile,
 } from "react-firebase-hooks/auth";
 import auth from "../../firebase.init";
 import Spinner from "../Shared/Spinner";
+import useToken from "../../hooks/useToken";
 
 const Signup = () => {
-  const [authUser] = useAuthState(auth);
   const [createUserWithEmailAndPass, user, loading] =
     useCreateUserWithEmailAndPassword(auth, { sendEmailVerification: true });
   const [updateProfile] = useUpdateProfile(auth);
+  const [token] = useToken(user);
 
   //-------------------------------
   const navigate = useNavigate();
@@ -33,10 +33,10 @@ const Signup = () => {
   };
 
   useEffect(() => {
-    if (authUser || user) {
+    if (token) {
       navigate(from, { replace: true });
     }
-  }, [authUser, user, navigate, from]);
+  }, [token, navigate, from]);
 
   if (loading) {
     return <Spinner />;

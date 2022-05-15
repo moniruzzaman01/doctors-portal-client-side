@@ -33,6 +33,7 @@ const Navbar = () => {
         <li
           onClick={() => {
             signOut(auth);
+            localStorage.removeItem("accessToken");
           }}
         >
           <p>Logout</p>

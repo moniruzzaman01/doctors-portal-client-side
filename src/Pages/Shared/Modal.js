@@ -8,7 +8,6 @@ import auth from "../../firebase.init";
 const Modal = ({ trtment, date, setTrtment, refetch }) => {
   const [authUser] = useAuthState(auth);
   const { _id, name, slots } = trtment;
-  // console.log(trtment);
 
   const haldleModalform = async (event) => {
     event.preventDefault();

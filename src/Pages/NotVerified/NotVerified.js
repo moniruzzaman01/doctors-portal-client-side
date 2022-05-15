@@ -39,7 +39,6 @@ const NotVerified = () => {
             </button>
             <button
               onClick={() => {
-                console.log("clicked");
                 sendEmailVerification(authUser.email);
               }}
               className="btn btn-success text-white mt-5"

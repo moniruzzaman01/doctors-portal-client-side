@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import chair from "../../assets/images/chair.png";
 import Footer from "../Shared/Footer";
 import AvailableAppointment from "./AvailableAppointment";
@@ -9,6 +9,7 @@ import appoinmentBg from "../../assets/images/bg.png";
 import Modal from "../Shared/Modal";
 import { useQuery } from "react-query";
 import Spinner from "../Shared/Spinner";
+import axios from "axios";
 
 const Appoinment = () => {
   const [date, setDate] = useState(new Date());
@@ -30,7 +31,6 @@ const Appoinment = () => {
   //   axios(`http://localhost:5000/services?date=${formattedDate}`).then((res) =>
   //     setServices(res.data)
   //   );
-  //   console.log("triggered");
   // }, [formattedDate]);
 
   if (isLoading) {

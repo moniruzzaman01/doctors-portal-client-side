@@ -16,49 +16,51 @@ import "react-toastify/dist/ReactToastify.css";
 import Dashboard from "./Dashboard/Dashboard";
 import MyAppointment from "./Dashboard/MyAppointment";
 import MyReview from "./Dashboard/MyReview";
+import Users from "./Dashboard/Users";
 
 function App() {
-  const [user] = useAuthState(auth);
-  if (user?.emailVerified === false) {
-    return <NotVerified />;
-  } else {
-    return (
-      <div className=" max-w-7xl mx-auto ">
-        <Navbar />
-        <div className=" pt-16">
-          <Routes>
-            <Route path="/" element={<Home />}></Route>
-            <Route path="/home" element={<Home />}></Route>
-            <Route path="/about" element={<About />}></Route>
-            <Route
-              path="/appoinment"
-              element={
-                <RequireAuth>
-                  <Appoinment />
-                </RequireAuth>
-              }
-            ></Route>
-            <Route
-              path="/dashboard"
-              element={
-                <RequireAuth>
-                  <Dashboard />
-                </RequireAuth>
-              }
-            >
-              <Route index element={<MyAppointment />}></Route>
-              <Route path="review" element={<MyReview />}></Route>
-            </Route>
-            <Route path="/review" element={<Review />}></Route>
-            <Route path="/contact" element={<Contact />}></Route>
-            <Route path="/login" element={<Login />}></Route>
-            <Route path="/signup" element={<Signup />}></Route>
-          </Routes>
-          <ToastContainer />
-        </div>
+  // const [user] = useAuthState(auth);
+  // if (user?.emailVerified === false) {
+  //   return <NotVerified />;
+  // } else {
+  return (
+    <div className=" max-w-7xl mx-auto ">
+      <Navbar />
+      <div className=" pt-16">
+        <Routes>
+          <Route path="/" element={<Home />}></Route>
+          <Route path="/home" element={<Home />}></Route>
+          <Route path="/about" element={<About />}></Route>
+          <Route
+            path="/appoinment"
+            element={
+              <RequireAuth>
+                <Appoinment />
+              </RequireAuth>
+            }
+          ></Route>
+          <Route
+            path="/dashboard"
+            element={
+              <RequireAuth>
+                <Dashboard />
+              </RequireAuth>
+            }
+          >
+            <Route index element={<MyAppointment />} />
+            <Route path="review" element={<MyReview />} />
+            <Route path="users" element={<Users />} />
+          </Route>
+          <Route path="/review" element={<Review />}></Route>
+          <Route path="/contact" element={<Contact />}></Route>
+          <Route path="/login" element={<Login />}></Route>
+          <Route path="/signup" element={<Signup />}></Route>
+        </Routes>
+        <ToastContainer />
       </div>
-    );
-  }
+    </div>
+  );
 }
+// }
 
 export default App;
