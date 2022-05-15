@@ -17,6 +17,7 @@ import Dashboard from "./Dashboard/Dashboard";
 import MyAppointment from "./Dashboard/MyAppointment";
 import MyReview from "./Dashboard/MyReview";
 import Users from "./Dashboard/Users";
+import RequireAdmin from "./RequireAuth/RequireAdmin";
 
 function App() {
   // const [user] = useAuthState(auth);
@@ -49,7 +50,14 @@ function App() {
           >
             <Route index element={<MyAppointment />} />
             <Route path="review" element={<MyReview />} />
-            <Route path="users" element={<Users />} />
+            <Route
+              path="users"
+              element={
+                <RequireAdmin>
+                  <Users />
+                </RequireAdmin>
+              }
+            />
           </Route>
           <Route path="/review" element={<Review />}></Route>
           <Route path="/contact" element={<Contact />}></Route>

@@ -1,11 +1,7 @@
-import React, { useEffect, useState } from "react";
-import { useAuthState } from "react-firebase-hooks/auth";
+import React from "react";
 import { useQuery } from "react-query";
-import auth from "../firebase.init";
 
 const Users = () => {
-  const [authUser] = useAuthState(auth);
-  const [role, setRole] = useState("");
   const {
     data: users,
     isLoading,
@@ -18,15 +14,11 @@ const Users = () => {
     }).then((res) => res.json())
   );
 
-  //----------------------------------------
+  //------------------------------------
 
-  useEffect(() => {
-    users?.forEach((user) => {
-      if (user.email === authUser.email) {
-        setRole(user.role);
-      }
-    });
-  }, [users, authUser]);
+  if (isLoading) {
+    return;
+  }
 
   const makeAdmin = (email) => {
     fetch(`http://localhost:5000/user/makeAdmin/${email}`, {
@@ -37,7 +29,6 @@ const Users = () => {
         refetch();
       });
   };
-
   const deleteUser = (email) => {
     fetch(`http://localhost:5000/user/delete/${email}`, {
       method: "delete",
@@ -47,12 +38,6 @@ const Users = () => {
         refetch();
       });
   };
-
-  //--------------------------------
-
-  if (isLoading) {
-    return;
-  }
 
   return (
     <div>
@@ -69,33 +54,24 @@ const Users = () => {
             <tr key={key}>
               <th>{key + 1}</th>
               <td>{u.email}</td>
-              {role === "admin" ? (
-                <>
-                  <td>
-                    {u.role !== "admin" && (
-                      <button
-                        onClick={() => makeAdmin(u.email)}
-                        className="btn btn-xs"
-                      >
-                        Make Admin
-                      </button>
-                    )}
-                  </td>
-                  <td>
-                    <button
-                      onClick={() => deleteUser(u.email)}
-                      className="btn btn-xs"
-                    >
-                      Remove User
-                    </button>
-                  </td>
-                </>
-              ) : (
-                <>
-                  <td>-------</td>
-                  <td>-------</td>
-                </>
-              )}
+              <td>
+                {u.role !== "admin" && (
+                  <button
+                    onClick={() => makeAdmin(u.email)}
+                    className="btn btn-xs"
+                  >
+                    Make Admin
+                  </button>
+                )}
+              </td>
+              <td>
+                <button
+                  onClick={() => deleteUser(u.email)}
+                  className="btn btn-xs"
+                >
+                  Remove User
+                </button>
+              </td>
             </tr>
           ))}
         </tbody>
